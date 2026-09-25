@@ -12,13 +12,19 @@ npm run dev      # http://localhost:3000
 npm run build && npm start
 ```
 
-## Yayına alma (önerilen: Vercel)
+## Yayına alma (Cloudflare Pages — ticari kullanım ücretsiz)
 
-1. Klasörü bir GitHub deposuna yükleyin.
-2. vercel.com → "Add New Project" → depoyu seçin → Deploy (ayar gerekmez).
-3. Project → Settings → Domains → `ilkoldijital.com` ve `ilkoldijital.com.tr` ekleyin.
-   Vercel'in verdiği DNS kayıtlarını (A: 76.76.21.21, `www` için CNAME) alan adı panelinize girin.
-   `.com.tr`'yi `.com`'a yönlendirme (redirect) olarak ayarlayın.
+Site tamamen statik (`next.config.mjs` → `output: "export"`), derleme sonunda dosyalar `out/` klasörüne çıkar.
+
+1. Proje GitHub'da olsun.
+2. dash.cloudflare.com → **Workers & Pages → Create → Pages → Connect to Git** → depoyu seç.
+3. Ayarlar: Framework preset **None** (ya da Next.js (Static HTML Export)), Build command `npm run build`, Build output directory `out`.
+   Environment variables: `NODE_VERSION` = `22`.
+4. **Save and Deploy**. Site `xxx.pages.dev` adresinde açılır.
+5. Proje → **Custom domains** → `ilkoldijital.com` ve `www.ilkoldijital.com` ekle; Cloudflare'in istediği DNS kayıtlarını gir.
+6. `.com.tr` adresleri için Cloudflare'de **Redirect Rules** (301) ile `https://ilkoldijital.com` adresine yönlendirme.
+
+Not: Vercel'in ücretsiz Hobby planı yalnızca kişisel/ticari olmayan kullanım içindir.
 
 ## Düzenleme
 
