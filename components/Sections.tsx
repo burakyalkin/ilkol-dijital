@@ -1,6 +1,7 @@
 import { SITE, SERVICES, STEPS, WORKS } from "@/lib/site";
 import { mockup } from "@/lib/cards";
 import CopyEmail from "./CopyEmail";
+import { Reveal, RiseWords, ScrollWords } from "./Motion";
 
 const Arrow = ({ className }: { className?: string }) => (
     <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -14,17 +15,22 @@ export function Manifesto() {
             <div className="wrap manifesto__grid">
                 <p className="eyebrow">Yaklaşımımız</p>
                 <h2 className="manifesto__statement">
-                    Gürültüyü çıkarıyoruz. <span>Geriye markanızın gerçekten söylemesi gereken kalıyor.</span>
+                    <ScrollWords
+                        segments={[
+                            { text: "Çoğu site çok konuşur, az satar." },
+                            { text: "Bizimkiler az konuşur, çok satar.", className: "manifesto__soft" },
+                        ]}
+                    />
                 </h2>
                 <div className="principles">
-                    <div className="principle">
+                    <Reveal className="principle">
                         <h3>Yaratıcı</h3>
                         <p>Her marka için sıfırdan düşünürüz. Fikri sektörünüzün kendi dilinden, müşterinizin alışkanlıklarından çıkarırız.</p>
-                    </div>
-                    <div className="principle">
+                    </Reveal>
+                    <Reveal className="principle" delay={0.12}>
                         <h3>Sade</h3>
-                        <p>Ziyaretçi aradığını ilk bakışta bulur. Az öğe, net mesaj, hızlı açılan sayfalar.</p>
-                    </div>
+                        <p>Ziyaretçi ne sattığınızı ilk bakışta anlar, aradığını tek dokunuşla bulur. Az öğe, net mesaj, hızlı açılan sayfalar.</p>
+                    </Reveal>
                 </div>
             </div>
         </section>
@@ -38,13 +44,15 @@ export function Services() {
                 <div className="sec-head">
                     <p className="eyebrow">Hizmetler</p>
                     <div>
-                        <h2>Sitenizi kurar, bulunur hale getiririz.</h2>
+                        <h2>
+                            Site kurmak işin yarısı. <span className="accent">Diğer yarısı bulunmak.</span>
+                        </h2>
                         <p>Tasarımdan yayına, yayından üst sıralara kadar tek ekip. İhtiyacınız olan hizmeti seçin, gerisini birlikte planlayalım.</p>
                     </div>
                 </div>
                 <ul className="services">
-                    {SERVICES.map((s) => (
-                        <li key={s.name} className="service">
+                    {SERVICES.map((s, i) => (
+                        <Reveal as="li" key={s.name} className="service" delay={i * 0.06}>
                             <h3 className="service__name">
                                 {s.name}
                                 <Arrow className="service__arrow" />
@@ -57,7 +65,7 @@ export function Services() {
                                     </span>
                                 ))}
                             </div>
-                        </li>
+                        </Reveal>
                     ))}
                 </ul>
             </div>
@@ -73,16 +81,16 @@ export function Process() {
                     <p className="eyebrow">Süreç</p>
                     <div>
                         <h2>Dört adımda yukarı.</h2>
-                        <p>Her adımın sonunda ne elde ettiğinizi görürsünüz. Sürpriz yok, gereksiz toplantı yok.</p>
+                        <p>Ne zaman ne olacağını baştan bilirsiniz. Her adımın sonunda elinizde görebileceğiniz bir şey olur. Sürpriz yok, gereksiz toplantı yok.</p>
                     </div>
                 </div>
                 <ol className="steps">
                     {STEPS.map((s, i) => (
-                        <li key={s.title} className="step">
+                        <Reveal as="li" key={s.title} className="step" delay={i * 0.15} y={56}>
                             <span className="step__no">Adım {i + 1}</span>
                             <h3>{s.title}</h3>
                             <p>{s.desc}</p>
-                        </li>
+                        </Reveal>
                     ))}
                 </ol>
             </div>
@@ -98,11 +106,12 @@ export function Works() {
                     <p className="eyebrow">İşler</p>
                     <div>
                         <h2>Üste taşıdığımız markalar.</h2>
+                        <p>Söz vermek kolay. Yaptıklarımız burada.</p>
                     </div>
                 </div>
                 <div className="works">
                     {WORKS.map((w) => (
-                        <article key={w.client} className="work">
+                        <Reveal as="article" key={w.client} className="work" y={40}>
                             <div className="work__visual" style={{ background: w.bg }}>
                                 <div className="work__fan">
                                     {w.cards.map(([kind, pal], i) => (
@@ -120,7 +129,7 @@ export function Works() {
                                     <Arrow />
                                 </a>
                             </div>
-                        </article>
+                        </Reveal>
                     ))}
                 </div>
             </div>
@@ -134,19 +143,19 @@ export function Contact() {
             <div className="wrap">
                 <p className="eyebrow">İletişim</p>
                 <h2 className="contact__title">
-                    Sıradaki <em>üst sıra</em> sizin olsun.
+                    <RiseWords segments={[{ text: "Sıradaki" }, { text: "üst sıra", className: "contact__em", keep: true }, { text: "sizin olsun." }]} />
                 </h2>
                 <div className="contact__grid">
                     <p className="contact__lead">
-                        Sitenizin adresini ve ulaşmak istediğiniz hedefi yazın. Size özel bir yol haritasıyla dönüş yapalım.
+                        Sitenizin adresini ve ulaşmak istediğiniz hedefi yazın. Size özel bir yol haritasıyla dönelim. Satış baskısı yok; önce dinliyoruz.
                     </p>
                     <div className="contact__mail">
                         <a id="iletisim-eposta" href={`mailto:${SITE.email}`}>
                             {SITE.email}
                         </a>
                         <div className="contact__actions">
-                            <a href={`mailto:${SITE.email}?subject=Teklif%20talebi`} className="btn btn--light">
-                                E-posta yazın
+                            <a href={`mailto:${SITE.email}?subject=Yol%20haritas%C4%B1%20talebi`} className="btn btn--light">
+                                Yol haritası isteyin
                             </a>
                             <CopyEmail email={SITE.email} />
                         </div>

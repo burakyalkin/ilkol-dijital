@@ -1,7 +1,7 @@
 // Sitenin tüm metin ve iletişim bilgileri tek yerde. Değiştirmek için burayı düzenleyin.
 export const SITE = {
     name: "İlkol Dijital",
-    slogan: "Sade tasarla, zirveye taşı.",
+    slogan: "İlk ol.",
     url: "https://ilkoldijital.com",
     email: "info@ilkoldijital.com",
     description:
@@ -18,36 +18,36 @@ export const NAV = [
 export const SERVICES = [
     {
         name: "Web Tasarım",
-        desc: "Kurumsal siteler ve açılış sayfaları. Markanıza özel tasarlanır, her ekranda hızlı ve düzgün açılır.",
+        desc: "İlk izlenim sitenizde başlar. Telefonda da bilgisayarda da hızlı açılan, ziyaretçiyi aramaya ya da yazmaya yönlendiren sayfalar.",
         tags: ["Özgün tasarım", "Mobil uyum", "Hız optimizasyonu"],
     },
     {
         name: "E-Ticaret",
-        desc: "Ürünlerinizi düzenli bir katalogda sergileyen, satışa ya da teklif almaya hazır mağazalar.",
+        desc: "Dükkânınız kapansa da vitrininiz açık kalsın. Ürünlerinizi düzenli sergileyen, siparişe ya da teklife hazır mağazalar.",
         tags: ["WooCommerce", "Ürün kataloğu", "Ödeme altyapısı"],
     },
     {
         name: "SEO",
-        desc: "Müşterinizin Google'da yazdığı aramalarda sitenizin ilk sayfada, üst sıralarda görünmesi için çalışırız.",
+        desc: "Müşteriniz “yakınımdaki boya bayisi” yazdığında karşısına rakibiniz değil, siz çıkın.",
         tags: ["Teknik SEO", "Yerel SEO", "İçerik planı"],
     },
     {
         name: "Google Ads",
-        desc: "Bütçenizi doğru aramalara harcayan kampanyalar. Hangi tıklamanın müşteriye dönüştüğünü birlikte izleriz.",
+        desc: "Bütçeniz tıklamaya değil, müşteriye harcansın. Hangi liranın ne getirdiğini her ay sade bir raporla görürsünüz.",
         tags: ["Kampanya kurulumu", "Dönüşüm takibi", "Aylık rapor"],
     },
     {
         name: "Bakım ve Destek",
-        desc: "Site yayına girdikten sonra da yanınızdayız. Güncellemeler, yedekler ve küçük düzenlemeler bizde.",
+        desc: "Yayından sonra da buradayız. Güncelleme, yedek ve küçük düzenlemeler bizde; siz işinize bakın.",
         tags: ["Güncelleme", "Yedekleme", "Hızlı düzenleme"],
     },
 ];
 
 export const STEPS = [
-    { title: "Dinle", desc: "İşinizi, müşterinizi ve rakiplerinizi tanırız. Hedefi birlikte netleştiririz." },
-    { title: "Tasarla", desc: "Gereksiz her şeyi çıkarır, markanıza ait sade bir tasarım kurarız." },
-    { title: "Yayınla", desc: "Hızlı, mobil uyumlu ve arama motorlarına hazır şekilde siteyi canlıya alırız." },
-    { title: "Yükselt", desc: "SEO ve reklamla sitenizi üst sıralara taşır, sonuçları düzenli raporlarız." },
+    { title: "Dinle", desc: "İşinizi, müşterinizi ve rakiplerinizi tanırız. Neyin başarı sayılacağını en baştan birlikte yazarız." },
+    { title: "Tasarla", desc: "Gereksiz her şeyi çıkarırız. Yayına almadan önce tasarımı görür, onaylarsınız." },
+    { title: "Yayınla", desc: "Hızlı, mobil uyumlu ve Google'a hazır şekilde canlıya alırız. İlk günden ölçmeye başlarız." },
+    { title: "Yükselt", desc: "SEO ve reklamla sitenizi üst sıralara taşırız. Neyin işe yaradığını rakamlarla görürsünüz." },
 ];
 
 export type MockKind = "site" | "mobile" | "rank" | "chart";
@@ -66,7 +66,7 @@ export const WORKS: Work[] = [
     {
         client: "Dostlar Boya",
         kind: "E-ticaret · Katalog sitesi",
-        desc: "Oto tamir ve sanayi boyası bayisi için WordPress ve WooCommerce üzerinde kurulan ürün kataloğu. Ziyaretçi aradığı markayı ve ürünü birkaç tıklamada buluyor.",
+        desc: "Oto tamir ve sanayi boyası bayisinin ürünlerini WordPress ve WooCommerce üzerinde tek katalogda topladık. Usta, aradığı markayı ve ürünü birkaç dokunuşla buluyor.",
         url: "https://dostlarboya.com.tr",
         domain: "dostlarboya.com.tr",
         bg: "#FFE9DC",
@@ -75,7 +75,7 @@ export const WORKS: Work[] = [
     {
         client: "Palmiye Baca",
         kind: "Google Ads · Arama görünürlüğü",
-        desc: "Baca ürünleri ve hizmetleri için Google Ads kampanyaları ve arama sonuçlarında üst sıra hedefli çalışma.",
+        desc: "Google'da baca arayan kişinin karşısına Palmiye Baca'yı çıkaran kampanyalar. Bütçe, gerçekten ihtiyacı olan kişilere harcanıyor.",
         url: "https://baca.com.tr",
         domain: "baca.com.tr",
         bg: "#DDE3FF",

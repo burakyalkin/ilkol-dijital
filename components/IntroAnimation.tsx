@@ -246,17 +246,23 @@ export default function IntroAnimation({ nextSectionId = "yaklasim" }: { nextSec
                                 : { opacity: 0, filter: "blur(10px)" }
                         }
                         transition={{ duration: 1 }}
-                        className="font-display text-[26px] font-semibold tracking-[-0.03em] text-ink md:text-[44px] leading-[1.05]"
+                        className="font-display text-[52px] font-bold tracking-[-0.06em] text-ink md:text-[128px] leading-[0.9]"
                     >
-                        Sade tasarla,
-                        <br />
-                        <span className="text-cobalt">zirveye taşı.</span>
+                        İlk ol<span className="text-cobalt">.</span>
                     </motion.h1>
+                    <motion.p
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={introPhase === "circle" && morphValue < 0.5 ? { opacity: 1 - morphValue * 2, y: 0 } : { opacity: 0 }}
+                        transition={{ duration: 0.8, delay: 0.5 }}
+                        className="mt-3 md:mt-4 font-display text-[14px] md:text-[21px] font-medium tracking-[-0.02em] text-muted leading-snug"
+                    >
+                        Rakibiniz daha çok harcar. <span className="block text-ink">Siz daha üstte çıkarsınız.</span>
+                    </motion.p>
                     <motion.p
                         initial={{ opacity: 0 }}
                         animate={introPhase === "circle" && morphValue < 0.5 ? { opacity: 0.6 - morphValue } : { opacity: 0 }}
-                        transition={{ duration: 1, delay: 0.2 }}
-                        className="mt-5 font-mono text-[11px] font-medium tracking-[0.2em] text-muted"
+                        transition={{ duration: 1, delay: 0.9 }}
+                        className="hidden md:block mt-6 font-mono text-[11px] font-medium tracking-[0.2em] text-muted"
                     >
                         KAYDIRARAK KEŞFEDİN
                     </motion.p>
@@ -270,15 +276,26 @@ export default function IntroAnimation({ nextSectionId = "yaklasim" }: { nextSec
                     <p className="font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-cobalt mb-4">
                         İlkol Dijital · Yaratıcı ve sade
                     </p>
-                    <h2 className="font-display text-[34px] md:text-[64px] font-semibold text-ink tracking-[-0.04em] leading-[1] mb-5">
-                        Markanızı üste taşıyoruz.
+                    <h2 className="font-display text-[32px] md:text-[60px] font-semibold text-ink tracking-[-0.04em] leading-[1.02] mb-5">
+                        Müşteriniz sizi arıyor.
+                        <br />
+                        <span className="hero__mark text-cobalt">
+                            Rakibinizi mi buluyor?
+                            <motion.span
+                                className="hero__underline"
+                                aria-hidden="true"
+                                initial={{ scaleX: 0 }}
+                                animate={{ scaleX: morphValue > 0.95 ? 1 : 0 }}
+                                transition={{ duration: 0.7, ease: [0.2, 0.8, 0.2, 1], delay: morphValue > 0.95 ? 0.25 : 0 }}
+                            />
+                        </span>
                     </h2>
-                    <p className="text-[15px] md:text-[17px] text-muted max-w-[34rem] leading-relaxed">
-                        Hızlı açılan, net konuşan siteler tasarlıyor; onları Google&apos;da bulunur hale getiriyoruz.
+                    <p className="text-[15px] md:text-[17px] text-muted max-w-[36rem] leading-relaxed">
+                        Hızlı açılan, net konuşan bir site kuruyor; onu Google&apos;da üst sıralara taşıyoruz. Tasarımdan reklama tek ekip.
                     </p>
                     <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
                         <a href="#iletisim" className="btn btn--cobalt">
-                            Teklif alın
+                            Sitenizi konuşalım
                         </a>
                         <a href="#isler" className="btn btn--ghost">
                             İşlerimizi görün

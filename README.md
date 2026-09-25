@@ -1,6 +1,6 @@
 # İlkol Dijital — web sitesi
 
-**Slogan:** Sade tasarla, zirveye taşı.
+**Slogan:** İlk ol. (Alt satır: Rakibiniz daha çok harcar. Siz daha üstte çıkarsınız.)
 
 Next.js 15 (App Router) + Tailwind CSS v4 + framer-motion. Tek sayfa: hero animasyonu, Yaklaşım, Hizmetler, Süreç, İşler, İletişim.
 
