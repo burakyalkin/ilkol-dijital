@@ -108,6 +108,12 @@ export default function IntroAnimation({ nextSectionId = "yaklasim" }: { nextSec
         const container = containerRef.current;
         if (!container) return;
 
+        // Sayfanın aşağısına inildi mi? Geri dönüşte yayın turunu tekrar sardırmamak için.
+        let away = false;
+        const handleScroll = () => {
+            if (container.getBoundingClientRect().top < -1) away = true;
+        };
+
         const shouldCapture = (deltaY: number) => {
             const heroAtTop = container.getBoundingClientRect().top >= -1;
             if (!heroAtTop) return false;
@@ -116,7 +122,14 @@ export default function IntroAnimation({ nextSectionId = "yaklasim" }: { nextSec
             return true;
         };
 
-        const apply = (deltaY: number) => {
+        const apply = (rawDelta: number) => {
+            let deltaY = rawDelta;
+            if (deltaY < 0) {
+                // Aşağıdan dönünce doğrudan yay → çember aşamasından başla; yukarı yön biraz daha hızlı.
+                if (away && scrollRef.current > MORPH_END) scrollRef.current = MORPH_END;
+                deltaY *= 1.5;
+            }
+            away = false;
             const next = Math.min(Math.max(scrollRef.current + deltaY, 0), MAX_SCROLL);
             scrollRef.current = next;
             virtualScroll.set(next);
@@ -144,7 +157,9 @@ export default function IntroAnimation({ nextSectionId = "yaklasim" }: { nextSec
         container.addEventListener("wheel", handleWheel, { passive: false });
         container.addEventListener("touchstart", handleTouchStart, { passive: true });
         container.addEventListener("touchmove", handleTouchMove, { passive: false });
+        window.addEventListener("scroll", handleScroll, { passive: true });
         return () => {
+            window.removeEventListener("scroll", handleScroll);
             container.removeEventListener("wheel", handleWheel);
             container.removeEventListener("touchstart", handleTouchStart);
             container.removeEventListener("touchmove", handleTouchMove);
