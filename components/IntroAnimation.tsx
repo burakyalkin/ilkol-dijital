@@ -19,7 +19,11 @@ interface FlipCardProps {
 const IMG_WIDTH = 60;
 const IMG_HEIGHT = 85;
 
-function FlipCard({ src, index, target }: FlipCardProps) {
+// Giriş gösterisi yavaş ve süzülerek; sonrasında kaydırmaya çabuk tepki versin.
+const INTRO_SPRING = { type: "spring", stiffness: 40, damping: 15 } as const;
+const SCROLL_SPRING = { type: "spring", stiffness: 140, damping: 24 } as const;
+
+function FlipCard({ src, index, target, settled }: FlipCardProps & { settled: boolean }) {
     return (
         <motion.div
             animate={{
@@ -29,7 +33,7 @@ function FlipCard({ src, index, target }: FlipCardProps) {
                 scale: target.scale,
                 opacity: target.opacity,
             }}
-            transition={{ type: "spring", stiffness: 40, damping: 15 }}
+            transition={settled ? SCROLL_SPRING : INTRO_SPRING}
             style={{
                 position: "absolute",
                 width: IMG_WIDTH,
@@ -82,6 +86,7 @@ const lerp = (start: number, end: number, t: number) => start * (1 - t) + end * 
 
 export default function IntroAnimation({ nextSectionId = "yaklasim" }: { nextSectionId?: string }) {
     const [introPhase, setIntroPhase] = useState<AnimationPhase>("scatter");
+    const [settled, setSettled] = useState(false);
     const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
     const containerRef = useRef<HTMLDivElement>(null);
 
@@ -126,7 +131,12 @@ export default function IntroAnimation({ nextSectionId = "yaklasim" }: { nextSec
             let deltaY = rawDelta;
             if (deltaY < 0) {
                 // Aşağıdan dönünce doğrudan yay → çember aşamasından başla; yukarı yön biraz daha hızlı.
-                if (away && scrollRef.current > MORPH_END) scrollRef.current = MORPH_END;
+                // Yayın dönüşü anında sıfırlanır; kartların kendi yayı geçişi yumuşak tutar.
+                if (away && scrollRef.current > MORPH_END) {
+                    scrollRef.current = MORPH_END;
+                    virtualScroll.set(MORPH_END);
+                    smoothScrollRotate.jump(0);
+                }
                 deltaY *= 1.5;
             }
             away = false;
@@ -164,15 +174,17 @@ export default function IntroAnimation({ nextSectionId = "yaklasim" }: { nextSec
             container.removeEventListener("touchstart", handleTouchStart);
             container.removeEventListener("touchmove", handleTouchMove);
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [virtualScroll]);
 
     // 1. Morph: 0 (çember) → 1 (alt yay)
+    // Kartların kendi yayı zaten yumuşattığı için buradaki yaylar çevik tutuluyor; ikisi de yavaş olursa kaydırma gecikir.
     const morphProgress = useTransform(virtualScroll, [0, MORPH_END], [0, 1]);
-    const smoothMorph = useSpring(morphProgress, { stiffness: 40, damping: 20 });
+    const smoothMorph = useSpring(morphProgress, { stiffness: 110, damping: 24 });
 
     // 2. Yay üzerinde kaydırma (karıştırma)
     const scrollRotate = useTransform(virtualScroll, [MORPH_END, MAX_SCROLL], [0, 360]);
-    const smoothScrollRotate = useSpring(scrollRotate, { stiffness: 40, damping: 20 });
+    const smoothScrollRotate = useSpring(scrollRotate, { stiffness: 110, damping: 24 });
 
     // Alt ilerleme çubuğu
     const progress = useTransform(virtualScroll, [0, MAX_SCROLL], [0, 1]);
@@ -198,13 +210,16 @@ export default function IntroAnimation({ nextSectionId = "yaklasim" }: { nextSec
         const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
         if (reduce) {
             setIntroPhase("circle");
+            setSettled(true);
             return;
         }
         const timer1 = setTimeout(() => setIntroPhase("line"), 500);
         const timer2 = setTimeout(() => setIntroPhase("circle"), 2500);
+        const timer3 = setTimeout(() => setSettled(true), 4500); // çember oturduktan sonra
         return () => {
             clearTimeout(timer1);
             clearTimeout(timer2);
+            clearTimeout(timer3);
         };
     }, []);
 
@@ -378,7 +393,7 @@ export default function IntroAnimation({ nextSectionId = "yaklasim" }: { nextSec
                         }
 
                         return (
-                            <FlipCard key={i} src={src} index={i} total={TOTAL_IMAGES} phase={introPhase} target={target} />
+                            <FlipCard key={i} src={src} index={i} total={TOTAL_IMAGES} phase={introPhase} target={target} settled={settled} />
                         );
                     })}
                 </div>
