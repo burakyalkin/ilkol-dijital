@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { NAV } from "@/lib/site";
 
 export default function Header() {
@@ -28,8 +28,26 @@ export default function Header() {
         };
     }, []);
 
+    // Mobil menü açıkken dışarıya dokununca veya Esc'ye basınca kapanır
+    const headerRef = useRef<HTMLElement>(null);
+    useEffect(() => {
+        if (!open) return;
+        const onPointerDown = (e: PointerEvent) => {
+            if (!headerRef.current?.contains(e.target as Node)) setOpen(false);
+        };
+        const onKey = (e: KeyboardEvent) => {
+            if (e.key === "Escape") setOpen(false);
+        };
+        document.addEventListener("pointerdown", onPointerDown);
+        document.addEventListener("keydown", onKey);
+        return () => {
+            document.removeEventListener("pointerdown", onPointerDown);
+            document.removeEventListener("keydown", onKey);
+        };
+    }, [open]);
+
     return (
-        <header className={`hdr${dark ? " hdr--dark" : ""}`}>
+        <header ref={headerRef} className={`hdr${dark ? " hdr--dark" : ""}`}>
             <div className="hdr__bar">
                 <a href="#" className="logo" aria-label="İlkol Dijital ana sayfa">
                     <span className="logo__mark">
