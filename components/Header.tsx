@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { NAV } from "@/lib/site";
+import { NAV, CONTACT } from "@/lib/site";
+import { ChatIcon } from "./Icons";
 
 export default function Header() {
     const [dark, setDark] = useState(false);
@@ -72,8 +73,10 @@ export default function Header() {
                     >
                         {open ? "Kapat" : "Menü"}
                     </button>
-                    <a href="#iletisim" className="btn btn--cobalt">
-                        Teklif alın
+                    <a href={CONTACT.whatsapp} className="btn btn--cobalt" target="_blank" rel="noopener noreferrer">
+                        <ChatIcon />
+                        <span className="hdr__cta-long">{CONTACT.whatsappLabel}</span>
+                        <span className="hdr__cta-short">WhatsApp</span>
                     </a>
                 </div>
             </div>

@@ -1,6 +1,6 @@
-import { SITE, SERVICES, STEPS, WORKS } from "@/lib/site";
+import { SITE, CONTACT, SERVICES, STEPS, WORKS } from "@/lib/site";
 import { mockup } from "@/lib/cards";
-import CopyEmail from "./CopyEmail";
+import { ChatIcon, PhoneIcon } from "./Icons";
 import { Reveal, RiseWords, ScrollWords } from "./Motion";
 
 const Arrow = ({ className }: { className?: string }) => (
@@ -147,18 +147,25 @@ export function Contact() {
                 </h2>
                 <div className="contact__grid">
                     <p className="contact__lead">
-                        Sitenizin adresini ve ulaşmak istediğiniz hedefi yazın. Size özel bir yol haritasıyla dönelim. Satış baskısı yok; önce dinliyoruz.
+                        Sitenizin adresini ve ulaşmak istediğiniz hedefi WhatsApp'tan yazın ya da arayın. Size özel bir yol haritasıyla dönelim. Satış baskısı yok; önce dinliyoruz.
                     </p>
                     <div className="contact__mail">
-                        <a id="iletisim-eposta" href={`mailto:${SITE.email}`}>
-                            {SITE.email}
+                        <a href={CONTACT.tel} aria-label={`Telefon: ${SITE.phoneDisplay}`}>
+                            {SITE.phoneDisplay}
                         </a>
                         <div className="contact__actions">
-                            <a href={`mailto:${SITE.email}?subject=Yol%20haritas%C4%B1%20talebi`} className="btn btn--light">
-                                Yol haritası isteyin
+                            <a href={CONTACT.whatsapp} className="btn btn--light" target="_blank" rel="noopener noreferrer">
+                                <ChatIcon />
+                                {CONTACT.whatsappLabel}
                             </a>
-                            <CopyEmail email={SITE.email} />
+                            <a href={CONTACT.tel} className="btn btn--outline-light">
+                                <PhoneIcon />
+                                {CONTACT.callLabel}
+                            </a>
                         </div>
+                        <p className="contact__alt">
+                            E-postayı tercih ederseniz: <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+                        </p>
                     </div>
                 </div>
                 <footer className="foot">

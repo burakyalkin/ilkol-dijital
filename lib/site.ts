@@ -4,8 +4,18 @@ export const SITE = {
     slogan: "İlk ol.",
     url: "https://ilkoldijital.com",
     email: "info@ilkoldijital.com",
+    phone: "+905345209005",
+    phoneDisplay: "0534 520 90 05",
     description:
         "İlkol Dijital; hızlı açılan, net konuşan web siteleri tasarlar ve SEO ile Google Ads çalışmalarıyla markaları arama sonuçlarında üst sıralara taşır.",
+};
+
+// Ana çağrı her yerde aynı: WhatsApp; ikincisi arama.
+export const CONTACT = {
+    tel: `tel:${SITE.phone}`,
+    whatsapp: `https://wa.me/${SITE.phone.replace("+", "")}?text=${encodeURIComponent("Merhaba, web sitem hakkında görüşmek istiyorum.")}`,
+    whatsappLabel: "WhatsApp'tan yazın",
+    callLabel: "Hemen arayın",
 };
 
 export const NAV = [

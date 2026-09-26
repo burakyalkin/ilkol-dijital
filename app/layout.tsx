@@ -36,6 +36,7 @@ const jsonLd = {
     name: SITE.name,
     url: SITE.url,
     email: SITE.email,
+    telephone: SITE.phone,
     slogan: SITE.slogan,
     description: SITE.description,
     areaServed: "TR",

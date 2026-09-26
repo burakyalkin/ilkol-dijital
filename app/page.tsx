@@ -1,4 +1,5 @@
 import Header from "@/components/Header";
+import FloatingContact from "@/components/FloatingContact";
 import IntroAnimation from "@/components/IntroAnimation";
 import { Manifesto, Services, Process, Works, Contact } from "@/components/Sections";
 
@@ -14,6 +15,7 @@ export default function Home() {
                 <Works />
                 <Contact />
             </main>
+            <FloatingContact />
         </>
     );
 }
